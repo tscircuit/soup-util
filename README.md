@@ -9,7 +9,5 @@ const soup = [
   /* [ { type: "source_component", ... }, ... ] */
 ]
 
-const { source_component, pcb_component } = su(soup).get({
-  pcb_component_id: "123",
-})
+const pcb_component = su(soup).pcb_component.get("1234")
 ```
