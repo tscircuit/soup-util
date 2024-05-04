@@ -1,0 +1,27 @@
+{
+  "name": "@tscircuit/soup-util",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Utility library for working with tscircuit soup",
+  "files": ["dist"],
+  "main": "dist/index.cjs",
+  "scripts": {
+    "build": "tsup ./index.ts --dts --sourcemap"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "@tscircuit/builder": "*",
+    "zod": "*"
+  },
+  "devDependencies": {
+    "@tscircuit/builder": "^1.5.85",
+    "ava": "^6.1.2",
+    "esbuild": "^0.20.2",
+    "esbuild-register": "^3.5.0",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5",
+    "zod": "^3.23.6"
+  }
+}
