@@ -17,7 +17,11 @@ export type GetSoupUtilObject = <
     | AnySoupElementInput
 >(
   soup: T[]
-) => SoupUtilObject<T>
+) => SoupUtilObject<
+  T extends AnySoupElement
+    ? AnySoupElement
+    : AnySoupElement | AnySoupElementInput
+>
 
 export const su: GetSoupUtilObject = (soup) => {
   const su = new Proxy(
