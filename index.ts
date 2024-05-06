@@ -9,7 +9,7 @@ type SoupOps<
   getUsing: (using: {
     [key: `${string}_id`]: string
   }) => Extract<T, { type: K }> | null
-  list: (where: any) => Extract<T, { type: K }>[] | null
+  list: (where: any) => Extract<T, { type: K }>[]
 }
 
 export type SoupUtilObject = {
