@@ -90,7 +90,9 @@ export const su: GetSoupUtilObject = ((soup: AnySoupElement[]) => {
               component_type === "source_port" ||
               component_type === "schematic_port"
             ) {
-              const [component_name, port_selector] = selector.split(/[ \>]/)
+              const [component_name, port_selector] = selector
+                .replace(/\./g, "")
+                .split(/[\s\>]+/)
               const source_component = soup.find(
                 (e) =>
                   e.type === "source_component" && e.name === component_name
