@@ -1,7 +1,7 @@
 {
   "name": "@tscircuit/soup-util",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Utility library for working with tscircuit soup",
   "files": [
     "dist"
@@ -9,6 +9,7 @@
   "main": "dist/index.cjs",
   "scripts": {
     "test": "ava",
+    "prepublish": "npm run build",
     "build": "tsup ./index.ts --dts --sourcemap"
   },
   "keywords": [],
