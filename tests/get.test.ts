@@ -1,4 +1,4 @@
-import type { AnySoupElement } from "@tscircuit/builder"
+import type { AnySoupElement } from "@tscircuit/soup"
 import su from "../index"
 import test from "ava"
 

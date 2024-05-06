@@ -8,6 +8,7 @@
   ],
   "main": "dist/index.cjs",
   "scripts": {
+    "test": "ava",
     "build": "tsup ./index.ts --dts --sourcemap"
   },
   "keywords": [],
@@ -17,12 +18,14 @@
     "zod": "*"
   },
   "devDependencies": {
-    "@tscircuit/builder": "^1.5.85",
     "ava": "^6.1.2",
     "esbuild": "^0.20.2",
     "esbuild-register": "^3.5.0",
     "tsup": "^8.0.2",
     "typescript": "^5.4.5",
     "zod": "^3.23.6"
+  },
+  "dependencies": {
+    "@tscircuit/soup": "^0.0.4"
   }
 }

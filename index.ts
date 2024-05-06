@@ -1,29 +1,29 @@
-import type { AnySoupElement, AnySoupElementInput } from "@tscircuit/builder"
+import type { AnySoupElement, AnySoupElementInput } from "@tscircuit/soup"
 
-export type SoupUtilObject<T extends AnySoupElement | AnySoupElementInput> = {
-  [K in AnySoupElement["type"]]: {
-    get: (id: string) => Extract<T, { type: K }> | null
-    getWhere: (where: any) => Extract<T, { type: K }> | null
-    getUsing: (using: {
-      [key: `${string}_id`]: string
-    }) => Extract<T, { type: K }> | null
-    list: (where: any) => Extract<T, { type: K }>[] | null
-  }
+type SoupOps<
+  K extends AnySoupElement["type"],
+  T extends AnySoupElement | AnySoupElementInput
+> = {
+  get: (id: string) => Extract<T, { type: K }> | null
+  getWhere: (where: any) => Extract<T, { type: K }> | null
+  getUsing: (using: {
+    [key: `${string}_id`]: string
+  }) => Extract<T, { type: K }> | null
+  list: (where: any) => Extract<T, { type: K }>[] | null
 }
 
-export type GetSoupUtilObject = <
-  T extends AnySoupElement | AnySoupElementInput =
-    | AnySoupElement
-    | AnySoupElementInput
->(
-  soup: T[]
-) => SoupUtilObject<
-  T extends AnySoupElement
-    ? AnySoupElement
-    : AnySoupElement | AnySoupElementInput
->
+export type SoupUtilObject = {
+  [K in AnySoupElement["type"]]: SoupOps<K, AnySoupElement>
+}
+export type SoupInputUtilObject = {
+  [K in AnySoupElementInput["type"]]: SoupOps<K, AnySoupElementInput>
+}
 
-export const su: GetSoupUtilObject = (soup) => {
+export type GetSoupUtilObject = ((soup: AnySoupElement[]) => SoupUtilObject) & {
+  unparsed: (soup: AnySoupElementInput[]) => SoupInputUtilObject
+}
+
+export const su: GetSoupUtilObject = ((soup: AnySoupElement[]) => {
   const su = new Proxy(
     {},
     {
@@ -76,6 +76,7 @@ export const su: GetSoupUtilObject = (soup) => {
   )
 
   return su
-}
+}) as any
+su.unparsed = su as any
 
 export default su

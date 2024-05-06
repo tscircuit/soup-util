@@ -1,16 +1,16 @@
-import type { AnySoupElement } from "@tscircuit/builder"
+import type { AnySoupElementInput } from "@tscircuit/soup"
 import su from "../index"
 import test from "ava"
 
 test("getUsing", (t) => {
-  const soup: AnySoupElement[] = [
+  const soup: AnySoupElementInput[] = [
     {
       type: "source_component",
       source_component_id: "simple_resistor_0",
       name: "R1",
       supplier_part_numbers: {},
       ftype: "simple_resistor",
-      resistance: 10_000,
+      resistance: "10k",
     },
     {
       type: "source_port",
@@ -20,7 +20,7 @@ test("getUsing", (t) => {
     },
   ]
 
-  const sc = su(soup).source_component.getUsing({
+  const sc = su.unparsed(soup).source_component.getUsing({
     source_port_id: "source_port_0",
   })
   t.is(sc?.name, "R1")
