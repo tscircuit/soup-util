@@ -9,7 +9,7 @@ type SoupOps<
   getUsing: (using: {
     [key: `${string}_id`]: string
   }) => Extract<T, { type: K }> | null
-  list: (where: any) => Extract<T, { type: K }>[]
+  list: (where?: any) => Extract<T, { type: K }>[]
 }
 
 export type SoupUtilObject = {
@@ -62,8 +62,8 @@ export const su: GetSoupUtilObject = ((soup: AnySoupElement[]) => {
                 keys.every((key) => e[key] === where[key])
             )
           },
-          list: (where: any) => {
-            const keys = Object.keys(where)
+          list: (where?: any) => {
+            const keys = !where ? [] : Object.keys(where)
             return soup.filter(
               (e: any) =>
                 e.type === component_type &&
