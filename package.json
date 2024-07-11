@@ -16,16 +16,18 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "zod": "*",
-    "@tscircuit/soup": "*"
+    "@tscircuit/soup": "*",
+    "transformation-matrix": "*",
+    "zod": "*"
   },
   "devDependencies": {
+    "@tscircuit/soup": "^0.0.39",
     "ava": "^6.1.2",
     "esbuild": "^0.20.2",
     "esbuild-register": "^3.5.0",
+    "transformation-matrix": "^2.16.1",
     "tsup": "^8.0.2",
     "typescript": "^5.4.5",
-    "zod": "^3.23.6",
-    "@tscircuit/soup": "^0.0.15"
+    "zod": "^3.23.6"
   }
 }
