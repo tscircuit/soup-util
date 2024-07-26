@@ -27,3 +27,9 @@ export const getReadableNameForElement = (
       return `${elm.type}[#${getElementId(elm)}]`
   }
 }
+
+export {
+  getReadableNameForPcbPort,
+  getReadableNameForPcbSmtpad,
+  getReadableNameForPcbTrace,
+}
