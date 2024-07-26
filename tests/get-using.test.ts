@@ -1,5 +1,5 @@
 import type { AnySoupElementInput } from "@tscircuit/soup"
-import su from "../index"
+import { su } from "../index"
 import test from "ava"
 
 test("getUsing", (t) => {
