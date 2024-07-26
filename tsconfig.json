@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     // Base Options recommended for all projects
+    "baseUrl": ".",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "target": "es2022",
