@@ -36,9 +36,9 @@ export const getReadableNameForPcbPort = (
   // Determine the pad number or hint
   let padIdentifier: string
   if (sourcePort?.port_hints && sourcePort.port_hints.length > 0) {
-    padIdentifier = sourcePort.port_hints[0]
+    padIdentifier = sourcePort.port_hints[0]!
   } else if (sourcePort.port_hints && sourcePort.port_hints.length > 0) {
-    padIdentifier = sourcePort.port_hints[0]
+    padIdentifier = sourcePort.port_hints[0]!
   } else {
     padIdentifier = pcb_port_id
   }
