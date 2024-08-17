@@ -18,6 +18,7 @@ type SoupOps<
   insert: (
     elm: Omit<Extract<T, { type: K }>, "type" | `${K}_id`>,
   ) => Extract<T, { type: K }>
+  delete: (id: string) => void
   list: (where?: any) => Extract<T, { type: K }>[]
 }
 
@@ -119,6 +120,13 @@ export const su: GetSoupUtilFn = ((soup: AnySoupElement[]) => {
             }
             soup.push(newElm)
             return newElm
+          },
+          delete: (id: string) => {
+            const elm = soup.find(
+              (e) => (e as any)[`${component_type}_id`] === id,
+            )
+            if (!elm) return
+            soup.splice(soup.indexOf(elm), 1)
           },
           select: (selector: string) => {
             // TODO when applySelector is isolated we can use it, until then we
