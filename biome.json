@@ -27,6 +27,7 @@
       },
       "style": {
         "noNonNullAssertion": "off",
+        "noUselessElse": "off",
         "useFilenamingConvention": {
           "level": "error",
           "options": {

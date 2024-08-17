@@ -7,7 +7,7 @@ import type {
 
 type SoupOps<
   K extends AnySoupElement["type"],
-  T extends AnySoupElement | AnySoupElementInput
+  T extends AnySoupElement | AnySoupElementInput,
 > = {
   get: (id: string) => Extract<T, { type: K }> | null
   select: (selector: string) => Extract<T, { type: K }> | null
@@ -15,49 +15,79 @@ type SoupOps<
   getUsing: (using: {
     [key: `${string}_id`]: string
   }) => Extract<T, { type: K }> | null
+  insert: (
+    elm: Omit<Extract<T, { type: K }>, "type" | `${K}_id`>,
+  ) => Extract<T, { type: K }>
   list: (where?: any) => Extract<T, { type: K }>[]
 }
 
-export type SoupUtilObject = {
+export type SoupUtilObjects = {
   [K in AnySoupElement["type"]]: SoupOps<K, AnySoupElement>
+} & {
+  toArray: () => AnySoupElement[]
 }
-export type SoupInputUtilObject = {
+export type SoupInputUtilObjects = {
   [K in AnySoupElementInput["type"]]: SoupOps<K, AnySoupElementInput>
 }
 
-export type GetSoupUtilObject = ((soup: AnySoupElement[]) => SoupUtilObject) & {
-  unparsed: (soup: AnySoupElementInput[]) => SoupInputUtilObject
+export type GetSoupUtilFn = ((soup: AnySoupElement[]) => SoupUtilObjects) & {
+  unparsed: (soup: AnySoupElementInput[]) => SoupInputUtilObjects
 }
 
-export const su: GetSoupUtilObject = ((soup: AnySoupElement[]) => {
+interface InternalStore {
+  counts: Record<string, number>
+}
+
+export const su: GetSoupUtilFn = ((soup: AnySoupElement[]) => {
+  let internalStore: InternalStore = (soup as any)._internal_store
+  if (!internalStore) {
+    internalStore = {
+      counts: {},
+    } as InternalStore
+    ;(soup as any)._internal_store = internalStore
+
+    // Initialize counts
+    for (const elm of soup) {
+      const type = elm.type
+      internalStore.counts[type] ??= 1
+      const idNum = Number.parseInt((elm as any)[`${type}_id`].split("_").pop())
+      if (!Number.isNaN(idNum)) {
+        internalStore.counts[type] = Math.max(internalStore.counts[type], idNum)
+      }
+    }
+  }
   const su = new Proxy(
     {},
     {
       get: (proxy_target: any, component_type: string) => {
+        if (component_type === "toArray") {
+          return () => soup
+        }
+
         return {
           get: (id: string) =>
             soup.find(
               (e: any) =>
-                e.type === component_type && e[`${component_type}_id`] === id
+                e.type === component_type && e[`${component_type}_id`] === id,
             ),
           getUsing: (using: any) => {
             const keys = Object.keys(using)
             if (keys.length !== 1) {
               throw new Error(
-                "getUsing requires exactly one key, e.g. { pcb_component_id }"
+                "getUsing requires exactly one key, e.g. { pcb_component_id }",
               )
             }
             const join_key = keys[0] as string
             const join_type = join_key.replace("_id", "")
             const joiner: any = soup.find(
               (e: any) =>
-                e.type === join_type && e[join_key] === using[join_key]
+                e.type === join_type && e[join_key] === using[join_key],
             )
             if (!joiner) return null
             return soup.find(
               (e: any) =>
                 e.type === component_type &&
-                e[`${component_type}_id`] === joiner[`${component_type}_id`]
+                e[`${component_type}_id`] === joiner[`${component_type}_id`],
             )
           },
           getWhere: (where: any) => {
@@ -65,7 +95,7 @@ export const su: GetSoupUtilObject = ((soup: AnySoupElement[]) => {
             return soup.find(
               (e: any) =>
                 e.type === component_type &&
-                keys.every((key) => e[key] === where[key])
+                keys.every((key) => e[key] === where[key]),
             )
           },
           list: (where?: any) => {
@@ -73,8 +103,20 @@ export const su: GetSoupUtilObject = ((soup: AnySoupElement[]) => {
             return soup.filter(
               (e: any) =>
                 e.type === component_type &&
-                keys.every((key) => e[key] === where[key])
+                keys.every((key) => e[key] === where[key]),
             )
+          },
+          insert: (elm: any) => {
+            internalStore.counts[component_type] ??= -1
+            internalStore.counts[component_type]++
+            const index = internalStore.counts[component_type]
+            const newElm = {
+              type: component_type,
+              [`${component_type}_id`]: `${component_type}_${index}`,
+              ...elm,
+            }
+            soup.push(newElm)
+            return newElm
           },
           select: (selector: string) => {
             // TODO when applySelector is isolated we can use it, until then we
@@ -83,7 +125,7 @@ export const su: GetSoupUtilObject = ((soup: AnySoupElement[]) => {
               return soup.find(
                 (e) =>
                   e.type === "source_component" &&
-                  e.name === selector.replace(/\./g, "")
+                  e.name === selector.replace(/\./g, ""),
               )
             } else if (
               component_type === "pcb_port" ||
@@ -95,7 +137,7 @@ export const su: GetSoupUtilObject = ((soup: AnySoupElement[]) => {
                 .split(/[\s\>]+/)
               const source_component = soup.find(
                 (e) =>
-                  e.type === "source_component" && e.name === component_name
+                  e.type === "source_component" && e.name === component_name,
               ) as SourceComponentBase
               if (!source_component) return null
               const source_port = soup.find(
@@ -104,7 +146,7 @@ export const su: GetSoupUtilObject = ((soup: AnySoupElement[]) => {
                   e.source_component_id ===
                     source_component.source_component_id &&
                   (e.name === port_selector ||
-                    (e.port_hints ?? []).includes(port_selector!))
+                    (e.port_hints ?? []).includes(port_selector!)),
               ) as SourcePort
               if (!source_port) return null
               if (component_type === "source_port") return source_port
@@ -113,20 +155,20 @@ export const su: GetSoupUtilObject = ((soup: AnySoupElement[]) => {
                 return soup.find(
                   (e) =>
                     e.type === "pcb_port" &&
-                    e.source_port_id === source_port.source_port_id
+                    e.source_port_id === source_port.source_port_id,
                 )
               } else if (component_type === "schematic_port") {
                 return soup.find(
                   (e) =>
                     e.type === "schematic_port" &&
-                    e.source_port_id === source_port.source_port_id
+                    e.source_port_id === source_port.source_port_id,
                 )
               }
             }
           },
         }
       },
-    }
+    },
   )
 
   return su
