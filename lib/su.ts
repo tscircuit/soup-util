@@ -54,7 +54,9 @@ export const su: GetSoupUtilFn = ((soup: AnySoupElement[]) => {
     // Initialize counts
     for (const elm of soup) {
       const type = elm.type
-      const idNum = Number.parseInt((elm as any)[`${type}_id`].split("_").pop())
+      const idVal = (elm as any)[`${type}_id`]
+      if (!idVal) continue
+      const idNum = Number.parseInt(idVal.split("_").pop())
       if (!Number.isNaN(idNum)) {
         internalStore.counts[type] = Math.max(
           internalStore.counts[type] ?? 0,
