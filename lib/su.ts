@@ -4,6 +4,7 @@ import type {
   SourceComponentBase,
   SourcePort,
 } from "@tscircuit/soup"
+import * as Soup from "@tscircuit/soup"
 
 type SoupOps<
   K extends AnySoupElement["type"],
@@ -35,7 +36,14 @@ export type SoupInputUtilObjects = {
   [K in AnySoupElementInput["type"]]: SoupOps<K, AnySoupElementInput>
 }
 
-export type GetSoupUtilFn = ((soup: AnySoupElement[]) => SoupUtilObjects) & {
+export type SoupUtilOptions = {
+  validateInserts?: boolean
+}
+
+export type GetSoupUtilFn = ((
+  soup: AnySoupElement[],
+  options?: SoupUtilOptions,
+) => SoupUtilObjects) & {
   unparsed: (soup: AnySoupElementInput[]) => SoupInputUtilObjects
 }
 
@@ -43,7 +51,10 @@ interface InternalStore {
   counts: Record<string, number>
 }
 
-export const su: GetSoupUtilFn = ((soup: AnySoupElement[]) => {
+export const su: GetSoupUtilFn = ((
+  soup: AnySoupElement[],
+  options: SoupUtilOptions = {},
+) => {
   let internalStore: InternalStore = (soup as any)._internal_store
   if (!internalStore) {
     internalStore = {
@@ -124,6 +135,13 @@ export const su: GetSoupUtilFn = ((soup: AnySoupElement[]) => {
               [`${component_type}_id`]: `${component_type}_${index}`,
               ...elm,
             }
+
+            if (options.validateInserts) {
+              const parser =
+                (Soup as any)[component_type] ?? Soup.any_soup_element
+              parser.parse(newElm)
+            }
+
             soup.push(newElm)
             return newElm
           },
