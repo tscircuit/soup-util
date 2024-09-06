@@ -1,7 +1,7 @@
 {
   "name": "@tscircuit/soup-util",
   "type": "module",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Utility library for working with tscircuit soup",
   "files": [
     "dist"
