@@ -61,13 +61,7 @@ export const transformPCBElement = (elm: AnySoupElement, matrix: Matrix) => {
     elm.x = x
     elm.y = y
   } else if (elm.type === "pcb_keepout") {
-    if(elm.shape === "rect") {
-      const { x, y } = applyToPoint(matrix, { x: elm.x, y: elm.y })
-      elm.x = x
-      elm.y = y
-    } else if (elm.shape === "circle") {
-      elm.center = applyToPoint(matrix, elm.center)
-    }
+    elm.center = applyToPoint(matrix, elm.center)
   }
   else if (
     elm.type === "pcb_silkscreen_text" ||
