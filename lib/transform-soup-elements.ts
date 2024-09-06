@@ -1,10 +1,10 @@
 import type { AnySoupElement } from "@tscircuit/soup"
+import { type Matrix, applyToPoint, decomposeTSR } from "transformation-matrix"
 import {
   directionToVec,
   rotateDirection,
   vecToDirection,
 } from "./direction-to-vec"
-import { type Matrix, applyToPoint, decomposeTSR } from "transformation-matrix"
 
 export const transformSchematicElement = (
   elm: AnySoupElement,
@@ -60,7 +60,16 @@ export const transformPCBElement = (elm: AnySoupElement, matrix: Matrix) => {
     const { x, y } = applyToPoint(matrix, { x: elm.x, y: elm.y })
     elm.x = x
     elm.y = y
-  } else if (
+  } else if (elm.type === "pcb_keepout") {
+    if(elm.shape === "rect") {
+      const { x, y } = applyToPoint(matrix, { x: elm.x, y: elm.y })
+      elm.x = x
+      elm.y = y
+    } else if (elm.shape === "circle") {
+      elm.center = applyToPoint(matrix, elm.center)
+    }
+  }
+  else if (
     elm.type === "pcb_silkscreen_text" ||
     elm.type === "pcb_fabrication_note_text"
   ) {
