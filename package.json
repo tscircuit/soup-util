@@ -30,7 +30,7 @@
     "zod": "^3.23.6"
   },
   "dependencies": {
-    "@tscircuit/soup": "0.0.66",
+    "@tscircuit/soup": "^0.0.66",
     "parsel-js": "^1.1.2"
   }
 }
