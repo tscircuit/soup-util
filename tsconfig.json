@@ -19,7 +19,10 @@
     "noEmit": true,
     "lib": [
       "es2022"
-    ]
+    ],
+    "paths": {
+      "lib/*": ["lib/*"]
+    }
   },
   // Include the necessary files for your project
   "include": [
