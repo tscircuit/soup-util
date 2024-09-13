@@ -10,7 +10,7 @@
   "scripts": {
     "test": "ava",
     "prepublish": "npm run build",
-    "build": "tsup ./index.ts --dts --sourcemap"
+    "build": "tsup-node ./index.ts --dts --sourcemap"
   },
   "keywords": [],
   "author": "",
@@ -24,13 +24,13 @@
     "ava": "^6.1.2",
     "esbuild": "^0.20.2",
     "esbuild-register": "^3.5.0",
-    "transformation-matrix": "^2.16.1",
     "tsup": "^8.0.2",
     "typescript": "^5.4.5",
     "zod": "^3.23.6"
   },
   "dependencies": {
-    "@tscircuit/soup": "*",
+    "transformation-matrix": "^2.16.1",
+    "@tscircuit/soup": "^0.0.69",
     "parsel-js": "^1.1.2"
   }
 }
