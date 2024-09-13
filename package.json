@@ -1,7 +1,7 @@
 {
   "name": "@tscircuit/soup-util",
   "type": "module",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "Utility library for working with tscircuit soup",
   "files": [
     "dist"
@@ -29,8 +29,8 @@
     "zod": "^3.23.6"
   },
   "dependencies": {
-    "transformation-matrix": "^2.16.1",
-    "@tscircuit/soup": "^0.0.69",
+    "transformation-matrix": "*",
+    "@tscircuit/soup": "*",
     "parsel-js": "^1.1.2"
   }
 }
