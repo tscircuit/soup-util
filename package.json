@@ -21,6 +21,8 @@
     "zod": "*"
   },
   "devDependencies": {
+    "@tscircuit/soup": "^0.0.71",
+    "transformation-matrix": "^2.16.1",
     "ava": "^6.1.2",
     "esbuild": "^0.20.2",
     "esbuild-register": "^3.5.0",
@@ -29,8 +31,6 @@
     "zod": "^3.23.6"
   },
   "dependencies": {
-    "@tscircuit/soup": "*",
-    "parsel-js": "^1.1.2",
-    "transformation-matrix": "*"
+    "parsel-js": "^1.1.2"
   }
 }
