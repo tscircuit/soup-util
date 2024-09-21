@@ -8,7 +8,7 @@ import {
 
 export const transformSchematicElement = (
   elm: AnySoupElement,
-  matrix: Matrix
+  matrix: Matrix,
 ) => {
   if (elm.type === "schematic_component") {
     // TODO handle rotation
@@ -19,7 +19,7 @@ export const transformSchematicElement = (
     if (elm.facing_direction) {
       elm.facing_direction = rotateDirection(
         elm.facing_direction,
-        -(Math.atan2(matrix.b, matrix.a) / Math.PI) * 2
+        -(Math.atan2(matrix.b, matrix.a) / Math.PI) * 2,
       )
     }
   } else if (elm.type === "schematic_text") {
@@ -44,7 +44,7 @@ export const transformSchematicElement = (
 
 export const transformSchematicElements = (
   elms: AnySoupElement[],
-  matrix: Matrix
+  matrix: Matrix,
 ) => {
   return elms.map((elm) => transformSchematicElement(elm, matrix))
 }
@@ -60,10 +60,10 @@ export const transformPCBElement = (elm: AnySoupElement, matrix: Matrix) => {
     const { x, y } = applyToPoint(matrix, { x: elm.x, y: elm.y })
     elm.x = x
     elm.y = y
-  } else if (elm.type === "pcb_keepout") {
+  } else if (elm.type === "pcb_keepout" || elm.type === "pcb_board") {
+    // TODO adjust size/rotation
     elm.center = applyToPoint(matrix, elm.center)
-  }
-  else if (
+  } else if (
     elm.type === "pcb_silkscreen_text" ||
     elm.type === "pcb_fabrication_note_text"
   ) {
@@ -107,7 +107,7 @@ export const transformPCBElement = (elm: AnySoupElement, matrix: Matrix) => {
 
 export const transformPCBElements = (
   elms: AnySoupElement[],
-  matrix: Matrix
+  matrix: Matrix,
 ) => {
   const tsr = decomposeTSR(matrix)
   const flipPadWidthHeight =
