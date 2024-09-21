@@ -1,9 +1,9 @@
-import type { AnySoupElement } from "@tscircuit/soup"
+import type { AnyCircuitElement } from "circuit-json"
 import { su } from "../index"
 import test from "ava"
 
 test("select", (t) => {
-  const soup: AnySoupElement[] = [
+  const soup: AnyCircuitElement[] = [
     {
       type: "source_component",
       source_component_id: "simple_resistor_0",

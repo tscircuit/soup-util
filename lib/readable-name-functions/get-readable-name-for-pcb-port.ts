@@ -1,8 +1,8 @@
-import type { AnySoupElement } from "@tscircuit/soup"
+import type { AnyCircuitElement } from "circuit-json"
 import { su } from "../su"
 
 export const getReadableNameForPcbPort = (
-  soup: AnySoupElement[],
+  soup: AnyCircuitElement[],
   pcb_port_id: string,
 ): string => {
   const pcbPort = su(soup).pcb_port.get(pcb_port_id)

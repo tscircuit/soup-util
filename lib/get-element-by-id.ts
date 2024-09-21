@@ -1,9 +1,9 @@
-import type { AnySoupElement } from "@tscircuit/soup"
+import type { AnyCircuitElement } from "circuit-json"
 import { getElementId } from "./get-element-id"
 
 export const getElementById = (
-  soup: AnySoupElement[],
+  soup: AnyCircuitElement[],
   id: string,
-): AnySoupElement | null => {
+): AnyCircuitElement | null => {
   return soup.find((elm) => getElementId(elm) === id) ?? null
 }

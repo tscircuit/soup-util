@@ -16,13 +16,13 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "@tscircuit/soup": "*",
+    "circuit-json": "*",
     "transformation-matrix": "*",
     "zod": "*"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.2",
-    "@tscircuit/soup": "^0.0.71",
+    "circuit-json": "^0.0.78",
     "ava": "^6.1.2",
     "esbuild": "^0.20.2",
     "esbuild-register": "^3.5.0",

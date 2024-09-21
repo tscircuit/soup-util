@@ -1,9 +1,9 @@
-import type { AnySoupElement } from "@tscircuit/soup"
+import type { AnyCircuitElement } from "circuit-json"
 import { su } from "../su"
 import { getReadableNameForPcbPort } from "./get-readable-name-for-pcb-port"
 
 export function getReadableNameForPcbSmtpad(
-  soup: AnySoupElement[],
+  soup: AnyCircuitElement[],
   pcb_smtpad_id: string,
 ): string {
   // Find the pcb_smtpad object

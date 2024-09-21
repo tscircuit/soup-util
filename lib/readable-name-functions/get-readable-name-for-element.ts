@@ -1,4 +1,4 @@
-import type { AnySoupElement } from "@tscircuit/soup"
+import type { AnyCircuitElement } from "circuit-json"
 import { getReadableNameForPcbTrace } from "./get-readable-name-for-pcb-trace"
 import { getReadableNameForPcbSmtpad } from "./get-readable-name-for-pcb-smtpad"
 import { getReadableNameForPcbPort } from "./get-readable-name-for-pcb-port"
@@ -6,8 +6,8 @@ import { getElementById } from "lib/get-element-by-id"
 import { getElementId } from "lib/get-element-id"
 
 export const getReadableNameForElement = (
-  soup: AnySoupElement[],
-  elm: AnySoupElement | string,
+  soup: AnyCircuitElement[],
+  elm: AnyCircuitElement | string,
 ): string => {
   if (typeof elm === "string") {
     const elmObj = getElementById(soup, elm)

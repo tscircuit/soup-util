@@ -1,9 +1,9 @@
 import test from "ava"
 import { getReadableNameForElement } from "../lib/readable-name-functions/get-readable-name-for-element"
-import type { AnySoupElement } from "@tscircuit/soup"
+import type { AnyCircuitElement } from "circuit-json"
 
 test("getReadableNameForElement for pcb_port, pcb_smtpad, and pcb_trace", (t) => {
-  const soup: AnySoupElement[] = [
+  const soup: AnyCircuitElement[] = [
     {
       type: "source_component",
       source_component_id: "sc1",
