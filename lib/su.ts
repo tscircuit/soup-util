@@ -1,14 +1,14 @@
 import type {
-  AnySoupElement,
-  AnySoupElementInput,
+  AnyCircuitElement,
+  AnyCircuitElementInput,
   SourceComponentBase,
   SourcePort,
-} from "@tscircuit/soup"
-import * as Soup from "@tscircuit/soup"
+} from "circuit-json"
+import * as Soup from "circuit-json"
 
 type SoupOps<
-  K extends AnySoupElement["type"],
-  T extends AnySoupElement | AnySoupElementInput,
+  K extends AnyCircuitElement["type"],
+  T extends AnyCircuitElement | AnyCircuitElementInput,
 > = {
   get: (id: string) => Extract<T, { type: K }> | null
   select: (selector: string) => Extract<T, { type: K }> | null
@@ -28,12 +28,12 @@ type SoupOps<
 }
 
 export type SoupUtilObjects = {
-  [K in AnySoupElement["type"]]: SoupOps<K, AnySoupElement>
+  [K in AnyCircuitElement["type"]]: SoupOps<K, AnyCircuitElement>
 } & {
-  toArray: () => AnySoupElement[]
+  toArray: () => AnyCircuitElement[]
 }
 export type SoupInputUtilObjects = {
-  [K in AnySoupElementInput["type"]]: SoupOps<K, AnySoupElementInput>
+  [K in AnyCircuitElementInput["type"]]: SoupOps<K, AnyCircuitElementInput>
 }
 
 export type SoupUtilOptions = {
@@ -41,10 +41,10 @@ export type SoupUtilOptions = {
 }
 
 export type GetSoupUtilFn = ((
-  soup: AnySoupElement[],
+  soup: AnyCircuitElement[],
   options?: SoupUtilOptions,
 ) => SoupUtilObjects) & {
-  unparsed: (soup: AnySoupElementInput[]) => SoupInputUtilObjects
+  unparsed: (soup: AnyCircuitElementInput[]) => SoupInputUtilObjects
 }
 
 interface InternalStore {
@@ -52,7 +52,7 @@ interface InternalStore {
 }
 
 export const su: GetSoupUtilFn = ((
-  soup: AnySoupElement[],
+  soup: AnyCircuitElement[],
   options: SoupUtilOptions = {},
 ) => {
   let internalStore: InternalStore = (soup as any)._internal_store

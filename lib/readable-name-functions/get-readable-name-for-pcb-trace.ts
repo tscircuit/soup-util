@@ -1,8 +1,8 @@
-import type { AnySoupElement } from "@tscircuit/soup"
+import type { AnyCircuitElement } from "circuit-json"
 import { su } from "../su"
 
 export function getReadableNameForPcbTrace(
-  soup: AnySoupElement[],
+  soup: AnyCircuitElement[],
   pcb_trace_id: string,
 ) {
   // Find the pcb_trace object

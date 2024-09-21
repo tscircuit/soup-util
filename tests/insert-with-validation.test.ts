@@ -1,9 +1,9 @@
-import type { AnySoupElement } from "@tscircuit/soup"
+import type { AnyCircuitElement } from "circuit-json"
 import { su } from "../index"
-import test from "ava"
+import { test, expect } from "bun:test"
 
-test("insert with validation", (t) => {
-  const soup: AnySoupElement[] = [
+test("insert with validation", () => {
+  const soup: AnyCircuitElement[] = [
     {
       type: "source_component",
       source_component_id: "simple_resistor_0",
@@ -20,7 +20,7 @@ test("insert with validation", (t) => {
     },
   ]
 
-  t.throws(() => {
+  expect(() =>
     su(soup, { validateInserts: true }).pcb_port.insert({
       // @ts-expect-error - this is the error, "top" should be in an array
       layers: "top",
@@ -28,6 +28,6 @@ test("insert with validation", (t) => {
       source_port_id: "source_port_0",
       x: 0,
       y: 0,
-    })
-  })
+    }),
+  ).toThrow()
 })

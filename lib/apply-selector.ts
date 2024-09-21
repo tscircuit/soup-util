@@ -1,11 +1,11 @@
 import * as parsel from "parsel-js"
 import { convertAbbrToType } from "./convert-abbreviation-to-soup-element-type"
-import type { AnySoupElement } from "@tscircuit/soup"
+import type { AnyCircuitElement } from "circuit-json"
 
 const filterByType = (
-  elements: AnySoupElement[],
+  elements: AnyCircuitElement[],
   type: string
-): AnySoupElement[] => {
+): AnyCircuitElement[] => {
   type = convertAbbrToType(type)
   return elements.filter(
     (elm) => ("ftype" in elm && elm.ftype === type) || elm.type === type
@@ -17,21 +17,21 @@ const filterByType = (
  * resistor you can do ".R1 > port.left"
  */
 export const applySelector = (
-  elements: AnySoupElement[],
+  elements: AnyCircuitElement[],
   selectorRaw: string
-): AnySoupElement[] => {
+): AnyCircuitElement[] => {
   const selectorAST = parsel.parse(selectorRaw)
   return applySelectorAST(elements, selectorAST!)
 }
 
-const doesElmMatchClassName = (elm: AnySoupElement, className: string) =>
+const doesElmMatchClassName = (elm: AnyCircuitElement, className: string) =>
   ("name" in elm && elm.name === className) ||
   ("port_hints" in elm && elm.port_hints?.includes(className))
 
 export const applySelectorAST = (
-  elements: AnySoupElement[],
+  elements: AnyCircuitElement[],
   selectorAST: parsel.AST
-): AnySoupElement[] => {
+): AnyCircuitElement[] => {
   switch (selectorAST.type) {
     case "complex": {
       switch (selectorAST.combinator) {
@@ -40,7 +40,7 @@ export const applySelectorAST = (
           const { left, right } = selectorAST
           if (left.type === "class" || left.type === "type") {
             // TODO should also check if content matches any element tags
-            let matchElms: AnySoupElement[]
+            let matchElms: AnyCircuitElement[]
             if (left.type === "class") {
               matchElms = elements.filter((elm) =>
                 doesElmMatchClassName(elm, left.name)
@@ -89,7 +89,7 @@ export const applySelectorAST = (
       )
     }
     case "type": {
-      return filterByType(elements, selectorAST.name) as AnySoupElement[]
+      return filterByType(elements, selectorAST.name) as AnyCircuitElement[]
     }
     case "class": {
       return elements.filter((elm) =>

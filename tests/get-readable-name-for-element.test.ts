@@ -1,9 +1,9 @@
-import test from "ava"
 import { getReadableNameForElement } from "../lib/readable-name-functions/get-readable-name-for-element"
-import type { AnySoupElement } from "@tscircuit/soup"
+import type { AnyCircuitElement } from "circuit-json"
+import { expect, test } from "bun:test"
 
-test("getReadableNameForElement for pcb_port, pcb_smtpad, and pcb_trace", (t) => {
-  const soup: AnySoupElement[] = [
+test("getReadableNameForElement for pcb_port, pcb_smtpad, and pcb_trace", () => {
+  const soup: AnyCircuitElement[] = [
     {
       type: "source_component",
       source_component_id: "sc1",
@@ -106,23 +106,13 @@ test("getReadableNameForElement for pcb_port, pcb_smtpad, and pcb_trace", (t) =>
   ]
 
   // Test pcb_port
-  t.is(
-    getReadableNameForElement(soup, "pp1"),
-    "pcb_port[.R1 > .1]",
-    "PCB port readable name",
-  )
+  expect(getReadableNameForElement(soup, "pp1")).toBe("pcb_port[.R1 > .1]")
 
   // Test pcb_smtpad
-  t.is(
-    getReadableNameForElement(soup, "ps1"),
-    "pcb_port[.R1 > .1]",
-    "PCB SMT pad readable name",
-  )
+  expect(getReadableNameForElement(soup, "ps1")).toBe("pcb_port[.R1 > .1]")
 
   // Test pcb_trace
-  t.is(
-    getReadableNameForElement(soup, "pt1"),
+  expect(getReadableNameForElement(soup, "pt1")).toBe(
     "trace[.R1 > port.left, .C1 > port.positive]",
-    "PCB trace readable name",
   )
 })

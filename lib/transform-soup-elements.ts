@@ -1,4 +1,4 @@
-import type { AnySoupElement } from "@tscircuit/soup"
+import type { AnyCircuitElement } from "circuit-json"
 import { type Matrix, applyToPoint, decomposeTSR } from "transformation-matrix"
 import {
   directionToVec,
@@ -7,7 +7,7 @@ import {
 } from "./direction-to-vec"
 
 export const transformSchematicElement = (
-  elm: AnySoupElement,
+  elm: AnyCircuitElement,
   matrix: Matrix,
 ) => {
   if (elm.type === "schematic_component") {
@@ -43,13 +43,13 @@ export const transformSchematicElement = (
 }
 
 export const transformSchematicElements = (
-  elms: AnySoupElement[],
+  elms: AnyCircuitElement[],
   matrix: Matrix,
 ) => {
   return elms.map((elm) => transformSchematicElement(elm, matrix))
 }
 
-export const transformPCBElement = (elm: AnySoupElement, matrix: Matrix) => {
+export const transformPCBElement = (elm: AnyCircuitElement, matrix: Matrix) => {
   if (
     elm.type === "pcb_plated_hole" ||
     elm.type === "pcb_hole" ||
@@ -106,7 +106,7 @@ export const transformPCBElement = (elm: AnySoupElement, matrix: Matrix) => {
 }
 
 export const transformPCBElements = (
-  elms: AnySoupElement[],
+  elms: AnyCircuitElement[],
   matrix: Matrix,
 ) => {
   const tsr = decomposeTSR(matrix)

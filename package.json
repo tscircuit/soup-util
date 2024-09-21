@@ -6,24 +6,23 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "ava",
+    "test": "bun test",
     "prepublish": "npm run build",
-    "build": "tsup-node ./index.ts --dts --sourcemap"
+    "build": "tsup-node ./index.ts --format esm --dts --sourcemap"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "@tscircuit/soup": "*",
+    "circuit-json": "*",
     "transformation-matrix": "*",
     "zod": "*"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.2",
-    "@tscircuit/soup": "^0.0.71",
-    "ava": "^6.1.2",
+    "circuit-json": "^0.0.78",
     "esbuild": "^0.20.2",
     "esbuild-register": "^3.5.0",
     "transformation-matrix": "^2.16.1",
@@ -32,6 +31,7 @@
     "zod": "^3.23.6"
   },
   "dependencies": {
+    "@types/bun": "^1.1.10",
     "parsel-js": "^1.1.2"
   }
 }

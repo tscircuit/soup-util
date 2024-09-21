@@ -1,9 +1,9 @@
-import type { AnySoupElement } from "@tscircuit/soup"
+import type { AnyCircuitElement } from "circuit-json"
 import { su } from "../index"
-import test from "ava"
+import { test, expect } from "bun:test"
 
-test("select", (t) => {
-  const soup: AnySoupElement[] = [
+test("select", () => {
+  const soup: AnyCircuitElement[] = [
     {
       type: "source_component",
       source_component_id: "simple_resistor_0",
@@ -30,5 +30,5 @@ test("select", (t) => {
   ]
 
   const pp = su(soup).pcb_port.select(".R1 > .left")
-  t.is(pp?.pcb_port_id, "pcb_port_0")
+  expect(pp?.pcb_port_id).toBe("pcb_port_0")
 })

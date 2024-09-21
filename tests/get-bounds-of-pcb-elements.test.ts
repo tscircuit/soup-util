@@ -1,8 +1,9 @@
-import test from "ava"
 import { getBoundsOfPcbElements } from "../lib/get-bounds-of-pcb-elements"
+import type { AnyCircuitElement } from "circuit-json"
+import { expect, test } from "bun:test"
 
-test("getBoundsOfPcbElements", (t) => {
-  const elements: AnySoupElement[] = [
+test("getBoundsOfPcbElements", () => {
+  const elements: AnyCircuitElement[] = [
     {
       type: "pcb_component",
       pcb_component_id: "comp1",
@@ -35,5 +36,5 @@ test("getBoundsOfPcbElements", (t) => {
 
   const bounds = getBoundsOfPcbElements(elements)
 
-  t.deepEqual(bounds, { minX: -5, minY: -5, maxX: 20, maxY: 20 })
+  expect(bounds).toEqual({ minX: -5, minY: -5, maxX: 20, maxY: 20 })
 })

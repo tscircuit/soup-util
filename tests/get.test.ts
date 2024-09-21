@@ -1,9 +1,9 @@
-import type { AnySoupElement } from "@tscircuit/soup"
+import type { AnyCircuitElement } from "circuit-json"
 import { su } from "../index"
-import test from "ava"
+import { test, expect } from "bun:test"
 
-test("get", (t) => {
-  const soup: AnySoupElement[] = [
+test("get", () => {
+  const soup: AnyCircuitElement[] = [
     {
       type: "source_component",
       source_component_id: "simple_resistor_0",
@@ -21,5 +21,5 @@ test("get", (t) => {
   ]
 
   const se = su(soup).source_component.get("simple_resistor_0")
-  t.is(se?.name, "R1")
+  expect(se?.name).toBe("R1")
 })
