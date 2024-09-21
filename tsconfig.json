@@ -6,6 +6,7 @@
     "skipLibCheck": true,
     "target": "es2022",
     "allowJs": true,
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
     "moduleDetection": "force",
     "isolatedModules": true,
@@ -15,14 +16,15 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     // We are not transpiling, so preserve our source code and do not emit files
-    "module": "preserve",
+    "module": "ESNext",
     "noEmit": true,
     "lib": [
       "es2022"
     ],
     "paths": {
       "lib/*": ["lib/*"]
-    }
+    },
+    "outDir": "./dist"
   },
   // Include the necessary files for your project
   "include": [

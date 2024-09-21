@@ -1,8 +1,8 @@
 import type { AnyCircuitElementInput } from "circuit-json"
 import { su } from "../index"
-import test from "ava"
+import { test, expect } from "bun:test"
 
-test("getUsing", (t) => {
+test("getUsing", () => {
   const soup: AnyCircuitElementInput[] = [
     {
       type: "source_component",
@@ -23,5 +23,5 @@ test("getUsing", (t) => {
   const sc = su.unparsed(soup).source_component.getUsing({
     source_port_id: "source_port_0",
   })
-  t.is(sc?.name, "R1")
+  expect(sc?.name).toBe("R1")
 })

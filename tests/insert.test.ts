@@ -1,8 +1,8 @@
 import type { AnyCircuitElement } from "circuit-json"
 import { su } from "../index"
-import test from "ava"
+import { test, expect } from "bun:test"
 
-test("insert", (t) => {
+test("insert", () => {
   const soup: AnyCircuitElement[] = [
     {
       type: "source_component",
@@ -28,11 +28,11 @@ test("insert", (t) => {
     y: 0,
   })
 
-  t.is(pp?.pcb_port_id, "pcb_port_0")
+  expect(pp?.pcb_port_id).toBe("pcb_port_0")
 
   const pcb_port = su(soup)
     .toArray()
     .find((elm) => elm.type === "pcb_port")!
 
-  t.truthy(pcb_port)
+  expect(pcb_port).toBeTruthy()
 })

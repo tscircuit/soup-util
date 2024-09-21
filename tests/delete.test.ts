@@ -1,8 +1,8 @@
 import type { AnyCircuitElement } from "circuit-json"
 import { su } from "../index"
-import test from "ava"
+import { test, expect } from "bun:test"
 
-test("delete", (t) => {
+test("delete", () => {
   const soup: AnyCircuitElement[] = [
     {
       type: "source_component",
@@ -26,5 +26,5 @@ test("delete", (t) => {
     .toArray()
     .find((e) => e.type === "source_port")
 
-  t.falsy(sp)
+  expect(sp).toBeFalsy()
 })
