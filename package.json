@@ -8,7 +8,7 @@
   ],
   "main": "dist/index.js",
   "scripts": {
-    "test": "ava",
+    "test": "bun test",
     "prepublish": "npm run build",
     "build": "tsup-node ./index.ts --format esm --dts --sourcemap"
   },
