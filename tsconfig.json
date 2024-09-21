@@ -6,7 +6,7 @@
     "skipLibCheck": true,
     "target": "es2022",
     "allowJs": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "moduleDetection": "force",
     "isolatedModules": true,
@@ -18,20 +18,12 @@
     // We are not transpiling, so preserve our source code and do not emit files
     "module": "ESNext",
     "noEmit": true,
-    "lib": [
-      "es2022"
-    ],
+    "lib": ["es2022"],
     "paths": {
       "lib/*": ["lib/*"]
-    },
-    "outDir": "./dist"
+    }
   },
   // Include the necessary files for your project
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
