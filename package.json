@@ -6,11 +6,11 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "scripts": {
     "test": "ava",
     "prepublish": "npm run build",
-    "build": "tsup-node ./index.ts --dts --sourcemap"
+    "build": "tsup-node ./index.ts --format esm --dts --sourcemap"
   },
   "keywords": [],
   "author": "",

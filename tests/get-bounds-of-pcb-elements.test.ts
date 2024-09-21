@@ -1,5 +1,6 @@
 import test from "ava"
 import { getBoundsOfPcbElements } from "../lib/get-bounds-of-pcb-elements"
+import type { AnyCircuitElement } from "circuit-json"
 
 test("getBoundsOfPcbElements", (t) => {
   const elements: AnyCircuitElement[] = [
