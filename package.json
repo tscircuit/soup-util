@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.2",
-    "circuit-json": "^0.0.78",
+    "circuit-json": "^0.0.85",
     "esbuild": "^0.20.2",
     "esbuild-register": "^3.5.0",
     "transformation-matrix": "^2.16.1",
