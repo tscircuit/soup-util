@@ -10,7 +10,8 @@ export const findBoundsAndCenter = (
     .concat(
       elements
         .filter((elm) => elm.type === "pcb_trace")
-        .flatMap((elm) => elm.route),
+        // @ts-ignore
+        .flatMap((elm: PcbTrace) => elm.route),
     )
     .map((elm) => getDebugLayoutObject(elm))
     .filter(isTruthy)
@@ -18,10 +19,10 @@ export const findBoundsAndCenter = (
   if (debugObjects.length === 0)
     return { center: { x: 0, y: 0 }, width: 0, height: 0 }
 
-  let minX = debugObjects[0].x - debugObjects[0].width / 2
-  let maxX = debugObjects[0].x + debugObjects[0].width / 2
-  let minY = debugObjects[0].y - debugObjects[0].height / 2
-  let maxY = debugObjects[0].y + debugObjects[0].height / 2
+  let minX = debugObjects[0]!.x - debugObjects[0]!.width / 2
+  let maxX = debugObjects[0]!.x + debugObjects[0]!.width / 2
+  let minY = debugObjects[0]!.y - debugObjects[0]!.height / 2
+  let maxY = debugObjects[0]!.y + debugObjects[0]!.height / 2
 
   for (const obj of debugObjects.slice(1)) {
     minX = Math.min(minX, obj.x - obj.width / 2)
