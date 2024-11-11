@@ -154,7 +154,9 @@ export const su: GetSoupUtilFn = ((
           },
           update: (id: string, newProps: any) => {
             const elm = soup.find(
-              (e) => (e as any)[`${component_type}_id`] === id,
+              (e) =>
+                e.type === component_type &&
+                (e as any)[`${component_type}_id`] === id,
             )
             if (!elm) return
             Object.assign(elm, newProps)
