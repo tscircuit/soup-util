@@ -20,9 +20,23 @@ test("update", () => {
     },
   ]
 
-  const updatedPort = su(soup).source_port.update("source_port_0", {
+  su(soup).source_port.update("source_port_0", {
     name: "right",
   })
 
-  expect(updatedPort?.name).toBe("right")
+  const port = su(soup).source_port.get("source_port_0")
+
+  expect(port?.name).toBe("right")
+
+  su(soup).source_component.update("simple_resistor_0", {
+    supplier_part_numbers: {
+      jlcpcb: ["1234567890"],
+    },
+  })
+
+  const resistor = su(soup).source_component.get("simple_resistor_0")
+
+  expect(resistor?.supplier_part_numbers).toEqual({
+    jlcpcb: ["1234567890"],
+  })
 })
