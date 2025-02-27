@@ -10,7 +10,8 @@
   "scripts": {
     "test": "bun test",
     "prepublish": "npm run build",
-    "build": "tsup-node ./index.ts --format esm --dts --sourcemap"
+    "build": "tsup-node ./index.ts --format esm --dts --sourcemap",
+    "benchmark": "bun run lib/benchmarks/su-benchmark.ts"
   },
   "keywords": [],
   "author": "",
