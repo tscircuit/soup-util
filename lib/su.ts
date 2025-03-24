@@ -6,7 +6,7 @@ import type {
 } from "circuit-json"
 import * as Soup from "circuit-json"
 
-type SoupOps<
+export type SoupOps<
   K extends AnyCircuitElement["type"],
   T extends AnyCircuitElement | AnyCircuitElementInput,
 > = {
