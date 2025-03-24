@@ -5,9 +5,13 @@ import type {
   SourcePort,
 } from "circuit-json"
 import * as Soup from "circuit-json"
-import type { SoupOps, SoupUtilObjects, SoupInputUtilObjects } from "./su"
+import type {
+  CircuitJsonOps,
+  CircuitJsonUtilObjects as CircuitJsonUtilObjects,
+  CircuitJsonInputUtilObjects as CircuitJsonInputUtilObjects,
+} from "./cju"
 
-export type IndexedSoupUtilOptions = {
+export type IndexedCircuitJsonUtilOptions = {
   validateInserts?: boolean
   indexConfig?: {
     // Enable specific indexes for faster lookups
@@ -19,11 +23,11 @@ export type IndexedSoupUtilOptions = {
   }
 }
 
-export type GetIndexedSoupUtilFn = ((
+export type GetIndexedCircuitJsonUtilFn = ((
   soup: AnyCircuitElement[],
-  options?: IndexedSoupUtilOptions,
-) => SoupUtilObjects) & {
-  unparsed: (soup: AnyCircuitElementInput[]) => SoupInputUtilObjects
+  options?: IndexedCircuitJsonUtilOptions,
+) => CircuitJsonUtilObjects) & {
+  unparsed: (soup: AnyCircuitElementInput[]) => CircuitJsonInputUtilObjects
 }
 
 interface InternalStore {
@@ -47,9 +51,9 @@ function createIdKey(element: AnyCircuitElement): string {
   return `${type}:${(element as any)[`${type}_id`]}`
 }
 
-export const suIndexed: GetIndexedSoupUtilFn = ((
+export const cjuIndexed: GetIndexedCircuitJsonUtilFn = ((
   soup: AnyCircuitElement[],
-  options: IndexedSoupUtilOptions = {},
+  options: IndexedCircuitJsonUtilOptions = {},
 ) => {
   let internalStore: InternalStore = (soup as any)._internal_store_indexed
 
@@ -906,6 +910,6 @@ export const suIndexed: GetIndexedSoupUtilFn = ((
   return suIndexed
 }) as any
 
-suIndexed.unparsed = suIndexed as any
+cjuIndexed.unparsed = cjuIndexed as any
 
-export default suIndexed
+export default cjuIndexed

@@ -1,5 +1,5 @@
 import type { AnyCircuitElement } from "circuit-json"
-import { su } from "../index"
+import { cju } from "../index"
 import { test, expect } from "bun:test"
 
 test("get", () => {
@@ -20,6 +20,6 @@ test("get", () => {
     },
   ]
 
-  const se = su(soup).source_component.get("simple_resistor_0")
+  const se = cju(soup).source_component.get("simple_resistor_0")
   expect(se?.name).toBe("R1")
 })

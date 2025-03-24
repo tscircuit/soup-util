@@ -1,5 +1,5 @@
 import type { AnyCircuitElement } from "circuit-json"
-import { su } from "../su"
+import { cju } from "../cju"
 import { getReadableNameForPcbPort } from "./get-readable-name-for-pcb-port"
 
 export function getReadableNameForPcbSmtpad(
@@ -7,7 +7,7 @@ export function getReadableNameForPcbSmtpad(
   pcb_smtpad_id: string,
 ): string {
   // Find the pcb_smtpad object
-  const pcbSmtpad = su(soup).pcb_smtpad.get(pcb_smtpad_id)
+  const pcbSmtpad = cju(soup).pcb_smtpad.get(pcb_smtpad_id)
 
   if (!pcbSmtpad || !pcbSmtpad.pcb_port_id) {
     return `smtpad[${pcb_smtpad_id}]`

@@ -1,5 +1,5 @@
 import type { AnyCircuitElement } from "circuit-json"
-import { su, suIndexed } from "../index"
+import { cju, cjuIndexed } from "../index"
 import { test, expect } from "bun:test"
 
 test("suIndexed produces same output as su", () => {
@@ -32,8 +32,8 @@ test("suIndexed produces same output as su", () => {
     },
   ]
 
-  const regularSu = su(soup)
-  const indexedSu = suIndexed(soup, {
+  const regularSu = cju(soup)
+  const indexedSu = cjuIndexed(soup, {
     indexConfig: {
       byId: true,
       byType: true,

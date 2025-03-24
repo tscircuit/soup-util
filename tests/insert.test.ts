@@ -1,5 +1,5 @@
 import type { AnyCircuitElement } from "circuit-json"
-import { su } from "../index"
+import { cju } from "../index"
 import { test, expect } from "bun:test"
 
 test("insert", () => {
@@ -20,7 +20,7 @@ test("insert", () => {
     },
   ]
 
-  const pp = su(soup).pcb_port.insert({
+  const pp = cju(soup).pcb_port.insert({
     layers: ["top"],
     pcb_component_id: "",
     source_port_id: "source_port_0",
@@ -30,7 +30,7 @@ test("insert", () => {
 
   expect(pp?.pcb_port_id).toBe("pcb_port_0")
 
-  const pcb_port = su(soup)
+  const pcb_port = cju(soup)
     .toArray()
     .find((elm) => elm.type === "pcb_port")!
 

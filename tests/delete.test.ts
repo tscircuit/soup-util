@@ -1,5 +1,5 @@
 import type { AnyCircuitElement } from "circuit-json"
-import { su } from "../index"
+import { cju } from "../index"
 import { test, expect } from "bun:test"
 
 test("delete", () => {
@@ -20,9 +20,9 @@ test("delete", () => {
     },
   ]
 
-  su(soup).source_port.delete("source_port_0")
+  cju(soup).source_port.delete("source_port_0")
 
-  const sp = su(soup)
+  const sp = cju(soup)
     .toArray()
     .find((e) => e.type === "source_port")
 

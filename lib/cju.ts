@@ -6,7 +6,7 @@ import type {
 } from "circuit-json"
 import * as Soup from "circuit-json"
 
-export type SoupOps<
+export type CircuitJsonOps<
   K extends AnyCircuitElement["type"],
   T extends AnyCircuitElement | AnyCircuitElementInput,
 > = {
@@ -27,33 +27,36 @@ export type SoupOps<
   list: (where?: any) => Extract<T, { type: K }>[]
 }
 
-export type SoupUtilObjects = {
-  [K in AnyCircuitElement["type"]]: SoupOps<K, AnyCircuitElement>
+export type CircuitJsonUtilObjects = {
+  [K in AnyCircuitElement["type"]]: CircuitJsonOps<K, AnyCircuitElement>
 } & {
   toArray: () => AnyCircuitElement[]
 }
-export type SoupInputUtilObjects = {
-  [K in AnyCircuitElementInput["type"]]: SoupOps<K, AnyCircuitElementInput>
+export type CircuitJsonInputUtilObjects = {
+  [K in AnyCircuitElementInput["type"]]: CircuitJsonOps<
+    K,
+    AnyCircuitElementInput
+  >
 }
 
-export type SoupUtilOptions = {
+export type CircuitJsonUtilOptions = {
   validateInserts?: boolean
 }
 
-export type GetSoupUtilFn = ((
+export type GetCircuitJsonUtilFn = ((
   soup: AnyCircuitElement[],
-  options?: SoupUtilOptions,
-) => SoupUtilObjects) & {
-  unparsed: (soup: AnyCircuitElementInput[]) => SoupInputUtilObjects
+  options?: CircuitJsonUtilOptions,
+) => CircuitJsonUtilObjects) & {
+  unparsed: (soup: AnyCircuitElementInput[]) => CircuitJsonInputUtilObjects
 }
 
 interface InternalStore {
   counts: Record<string, number>
 }
 
-export const su: GetSoupUtilFn = ((
+export const cju: GetCircuitJsonUtilFn = ((
   soup: AnyCircuitElement[],
-  options: SoupUtilOptions = {},
+  options: CircuitJsonUtilOptions = {},
 ) => {
   let internalStore: InternalStore = (soup as any)._internal_store
   if (!internalStore) {
@@ -217,6 +220,8 @@ export const su: GetSoupUtilFn = ((
 
   return su
 }) as any
-su.unparsed = su as any
+cju.unparsed = cju as any
 
-export default su
+export const su = cju
+
+export default cju

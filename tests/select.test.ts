@@ -1,5 +1,5 @@
 import type { AnyCircuitElement } from "circuit-json"
-import { su } from "../index"
+import { cju } from "../index"
 import { test, expect } from "bun:test"
 
 test("select", () => {
@@ -29,6 +29,6 @@ test("select", () => {
     },
   ]
 
-  const pp = su(soup).pcb_port.select(".R1 > .left")
+  const pp = cju(soup).pcb_port.select(".R1 > .left")
   expect(pp?.pcb_port_id).toBe("pcb_port_0")
 })

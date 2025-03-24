@@ -1,5 +1,5 @@
 import type { AnyCircuitElement } from "circuit-json"
-import { su } from "../index"
+import { cju } from "../index"
 import { test, expect } from "bun:test"
 
 test("insert with validation", () => {
@@ -21,7 +21,7 @@ test("insert with validation", () => {
   ]
 
   expect(() =>
-    su(soup, { validateInserts: true }).pcb_port.insert({
+    cju(soup, { validateInserts: true }).pcb_port.insert({
       // @ts-expect-error - this is the error, "top" should be in an array
       layers: "top",
       pcb_component_id: "",
