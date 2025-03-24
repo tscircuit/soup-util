@@ -1,4 +1,5 @@
 export * from "./lib/su"
+export * from "./lib/su-indexed"
 export * from "./lib/transform-soup-elements"
 export * from "./lib/direction-to-vec"
 export * from "./lib/apply-selector"
@@ -9,3 +10,4 @@ export * from "./lib/get-bounds-of-pcb-elements"
 export * from "./lib/find-bounds-and-center"
 
 export { default as su } from "./lib/su"
+export { default as suIndexed } from "./lib/su-indexed"
