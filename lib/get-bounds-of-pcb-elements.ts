@@ -10,26 +10,45 @@ export const getBoundsOfPcbElements = (
 
   for (const elm of elements) {
     if (!elm.type.startsWith("pcb_")) continue
+
+    let centerX: number | undefined
+    let centerY: number | undefined
+
     if ("x" in elm && "y" in elm) {
-      minX = Math.min(minX, elm.x)
-      minY = Math.min(minY, elm.y)
-      maxX = Math.max(maxX, elm.x)
-      maxY = Math.max(maxY, elm.y)
+      centerX = elm.x
+      centerY = elm.y
+    }
+
+    if ("center" in elm) {
+      // @ts-ignore
+      centerX = elm.center.x
+      // @ts-ignore
+      centerY = elm.center.y
+    }
+
+    if (centerX !== undefined && centerY !== undefined) {
+      minX = Math.min(minX, centerX)
+      minY = Math.min(minY, centerY)
+      maxX = Math.max(maxX, centerX)
+      maxY = Math.max(maxY, centerY)
 
       if ("width" in elm) {
-        maxX = Math.max(maxX, elm.x + elm.width)
+        maxX = Math.max(maxX, centerX + elm.width / 2)
+        minX = Math.min(minX, centerX - elm.width / 2)
       }
       if ("height" in elm) {
-        maxY = Math.max(maxY, elm.y + elm.height)
+        maxY = Math.max(maxY, centerY + elm.height / 2)
+        minY = Math.min(minY, centerY - elm.height / 2)
       }
       if ("radius" in elm) {
-        minX = Math.min(minX, elm.x - elm.radius)
-        minY = Math.min(minY, elm.y - elm.radius)
-        maxX = Math.max(maxX, elm.x + elm.radius)
-        maxY = Math.max(maxY, elm.y + elm.radius)
+        minX = Math.min(minX, centerX - elm.radius)
+        minY = Math.min(minY, centerY - elm.radius)
+        maxX = Math.max(maxX, centerX + elm.radius)
+        maxY = Math.max(maxY, centerY + elm.radius)
       }
     } else if (elm.type === "pcb_trace") {
       for (const point of elm.route) {
+        // TODO add trace thickness support
         minX = Math.min(minX, point.x)
         minY = Math.min(minY, point.y)
         maxX = Math.max(maxX, point.x)
