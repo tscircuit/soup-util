@@ -39,8 +39,8 @@ test("suIndexed produces same output as su", () => {
       byType: true,
       byRelation: true,
       bySubcircuit: true,
-      byCustomField: ["name", "ftype"]
-    }
+      byCustomField: ["name", "ftype"],
+    },
   })
 
   // Test get operation
@@ -68,8 +68,12 @@ test("suIndexed produces same output as su", () => {
   expect(indexedList).toEqual(regularList)
 
   // Test list with filter
-  const regularListWhere = regularSu.source_component.list({ subcircuit_id: "main" })
-  const indexedListWhere = indexedSu.source_component.list({ subcircuit_id: "main" })
+  const regularListWhere = regularSu.source_component.list({
+    subcircuit_id: "main",
+  })
+  const indexedListWhere = indexedSu.source_component.list({
+    subcircuit_id: "main",
+  })
   expect(indexedListWhere).toEqual(regularListWhere)
 
   // Test insert operation
@@ -84,7 +88,9 @@ test("suIndexed produces same output as su", () => {
     subcircuit_id: "main",
   })
   expect(indexedInsert.name).toEqual(regularInsert.name)
-  expect(indexedInsert.source_component_id).toEqual(regularInsert.source_component_id)
+  expect(indexedInsert.source_component_id).toEqual(
+    regularInsert.source_component_id,
+  )
 
   // Test update operation
   const regularUpdate = regularSu.source_component.update("simple_resistor_0", {
@@ -96,10 +102,14 @@ test("suIndexed produces same output as su", () => {
   expect(indexedUpdate).toEqual(regularUpdate)
 
   // Test with subcircuit relationship
-  const regularBySubcircuit = regularSu.source_component.getWhere({ subcircuit_id: "main" })
-  const indexedBySubcircuit = indexedSu.source_component.getWhere({ subcircuit_id: "main" })
+  const regularBySubcircuit = regularSu.source_component.getWhere({
+    subcircuit_id: "main",
+  })
+  const indexedBySubcircuit = indexedSu.source_component.getWhere({
+    subcircuit_id: "main",
+  })
   expect(indexedBySubcircuit).toEqual(regularBySubcircuit)
-  
+
   // Test toArray returns the same soup
   expect(indexedSu.toArray()).toEqual(regularSu.toArray())
 })
