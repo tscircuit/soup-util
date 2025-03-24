@@ -1,8 +1,8 @@
 {
-  "name": "@tscircuit/soup-util",
+  "name": "@tscircuit/circuit-json-util",
   "type": "module",
   "version": "0.0.41",
-  "description": "Utility library for working with tscircuit soup",
+  "description": "Utility library for working with tscircuit circuit json",
   "files": [
     "dist"
   ],
@@ -15,7 +15,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "peerDependencies": {
     "circuit-json": "*",
     "transformation-matrix": "*",

@@ -1,24 +1,24 @@
 import type { AnyCircuitElement } from "circuit-json"
-import { su } from "../su"
+import { cju } from "../cju"
 
 export const getReadableNameForPcbPort = (
   soup: AnyCircuitElement[],
   pcb_port_id: string,
 ): string => {
-  const pcbPort = su(soup).pcb_port.get(pcb_port_id)
+  const pcbPort = cju(soup).pcb_port.get(pcb_port_id)
   if (!pcbPort) {
     return `pcb_port[#${pcb_port_id}]`
   }
 
   // Get the component information
-  const pcbComponent = su(soup).pcb_component.get(pcbPort?.pcb_component_id)
+  const pcbComponent = cju(soup).pcb_component.get(pcbPort?.pcb_component_id)
 
   if (!pcbComponent) {
     return `pcb_port[#${pcb_port_id}]`
   }
 
   // Get the source component information
-  const sourceComponent = su(soup).source_component.get(
+  const sourceComponent = cju(soup).source_component.get(
     pcbComponent.source_component_id,
   )
 
@@ -27,7 +27,7 @@ export const getReadableNameForPcbPort = (
   }
 
   // Get the source port information
-  const sourcePort = su(soup).source_port.get(pcbPort.source_port_id)
+  const sourcePort = cju(soup).source_port.get(pcbPort.source_port_id)
 
   if (!sourcePort) {
     return `pcb_port[#${pcb_port_id}]`

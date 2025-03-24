@@ -1,5 +1,5 @@
 import type { AnyCircuitElementInput } from "circuit-json"
-import { su } from "../index"
+import { cju } from "../index"
 import { test, expect } from "bun:test"
 
 test("getUsing", () => {
@@ -20,7 +20,7 @@ test("getUsing", () => {
     },
   ]
 
-  const sc = su.unparsed(soup).source_component.getUsing({
+  const sc = cju.unparsed(soup).source_component.getUsing({
     source_port_id: "source_port_0",
   })
   expect(sc?.name).toBe("R1")

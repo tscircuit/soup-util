@@ -1,12 +1,12 @@
 import type { AnyCircuitElement } from "circuit-json"
-import { su } from "../su"
+import { cju } from "../cju"
 
 export function getReadableNameForPcbTrace(
   soup: AnyCircuitElement[],
   pcb_trace_id: string,
 ) {
   // Find the pcb_trace object
-  const pcbTrace = su(soup).pcb_trace.get(pcb_trace_id)
+  const pcbTrace = cju(soup).pcb_trace.get(pcb_trace_id)
 
   if (!pcbTrace) {
     return `trace[${pcb_trace_id}]`
@@ -23,17 +23,17 @@ export function getReadableNameForPcbTrace(
 
   // Function to get component name and port hint
   function getComponentAndPortInfo(pcb_port_id: string) {
-    const pcbPort = su(soup).pcb_port.get(pcb_port_id)
+    const pcbPort = cju(soup).pcb_port.get(pcb_port_id)
     if (!pcbPort) return null
 
-    const pcbComponent = su(soup).pcb_component.get(pcbPort.pcb_component_id)
+    const pcbComponent = cju(soup).pcb_component.get(pcbPort.pcb_component_id)
     if (!pcbComponent) return null
-    const sourceComponent = su(soup).source_component.get(
+    const sourceComponent = cju(soup).source_component.get(
       pcbComponent.source_component_id,
     )
     if (!sourceComponent) return null
 
-    const sourcePort = su(soup).source_port.get(pcbPort.source_port_id)
+    const sourcePort = cju(soup).source_port.get(pcbPort.source_port_id)
     const portHint = sourcePort?.port_hints ? sourcePort.port_hints[1] : ""
 
     return {
