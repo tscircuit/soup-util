@@ -14,9 +14,25 @@ export const getBoundsOfPcbElements = (
     let centerX: number | undefined
     let centerY: number | undefined
 
+    let width: number | undefined
+    let height: number | undefined
+
     if ("x" in elm && "y" in elm) {
       centerX = elm.x
       centerY = elm.y
+    }
+
+    if ("outer_diameter" in elm) {
+      width = elm.outer_diameter
+      height = elm.outer_diameter
+    }
+
+    if ("width" in elm) {
+      width = elm.width
+    }
+
+    if ("height" in elm) {
+      height = elm.height
     }
 
     if ("center" in elm) {
@@ -32,14 +48,13 @@ export const getBoundsOfPcbElements = (
       maxX = Math.max(maxX, centerX)
       maxY = Math.max(maxY, centerY)
 
-      if ("width" in elm) {
-        maxX = Math.max(maxX, centerX + elm.width / 2)
-        minX = Math.min(minX, centerX - elm.width / 2)
+      if (width !== undefined && height !== undefined) {
+        minX = Math.min(minX, centerX - width / 2)
+        minY = Math.min(minY, centerY - height / 2)
+        maxX = Math.max(maxX, centerX + width / 2)
+        maxY = Math.max(maxY, centerY + height / 2)
       }
-      if ("height" in elm) {
-        maxY = Math.max(maxY, centerY + elm.height / 2)
-        minY = Math.min(minY, centerY - elm.height / 2)
-      }
+
       if ("radius" in elm) {
         minX = Math.min(minX, centerX - elm.radius)
         minY = Math.min(minY, centerY - elm.radius)
